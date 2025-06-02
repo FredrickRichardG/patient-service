@@ -19,8 +19,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-05-30T14:55:42+0530",
-    comments = "version: 1.5.5.Final, compiler: Eclipse JDT (IDE) 3.42.0.v20250514-1000, environment: Java 21.0.7 (Eclipse Adoptium)"
+    date = "2025-06-02T16:44:55+0530",
+    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 21.0.7 (Oracle Corporation)"
 )
 @Component
 public class PatientMapperImpl implements PatientMapper {
@@ -33,22 +33,22 @@ public class PatientMapperImpl implements PatientMapper {
 
         PatientDTO patientDTO = new PatientDTO();
 
-        patientDTO.setAddress( toDTO( patient.getAddress() ) );
-        patientDTO.setBirthDate( patient.getBirthDate() );
-        patientDTO.setDiagnoses( diagnosisListToDiagnosisDTOList( patient.getDiagnoses() ) );
-        patientDTO.setEmail( patient.getEmail() );
-        patientDTO.setFirstName( patient.getFirstName() );
         patientDTO.setId( patient.getId() );
-        patientDTO.setInsuranceDetails( toDTO( patient.getInsuranceDetails() ) );
-        patientDTO.setLastName( patient.getLastName() );
-        patientDTO.setMaritalStatus( patient.getMaritalStatus() );
         patientDTO.setMedicalRecordNumber( patient.getMedicalRecordNumber() );
-        patientDTO.setMobile( patient.getMobile() );
-        patientDTO.setPrimaryPhysician( toDTO( patient.getPrimaryPhysician() ) );
-        patientDTO.setReferralInfo( toDTO( patient.getReferralInfo() ) );
-        patientDTO.setSex( patient.getSex() );
         patientDTO.setStartOfCareDate( patient.getStartOfCareDate() );
         patientDTO.setStatus( patient.getStatus() );
+        patientDTO.setFirstName( patient.getFirstName() );
+        patientDTO.setLastName( patient.getLastName() );
+        patientDTO.setSex( patient.getSex() );
+        patientDTO.setBirthDate( patient.getBirthDate() );
+        patientDTO.setMaritalStatus( patient.getMaritalStatus() );
+        patientDTO.setEmail( patient.getEmail() );
+        patientDTO.setMobile( patient.getMobile() );
+        patientDTO.setAddress( toDTO( patient.getAddress() ) );
+        patientDTO.setReferralInfo( toDTO( patient.getReferralInfo() ) );
+        patientDTO.setDiagnoses( diagnosisListToDiagnosisDTOList( patient.getDiagnoses() ) );
+        patientDTO.setInsuranceDetails( toDTO( patient.getInsuranceDetails() ) );
+        patientDTO.setPrimaryPhysician( toDTO( patient.getPrimaryPhysician() ) );
 
         return patientDTO;
     }
@@ -61,22 +61,22 @@ public class PatientMapperImpl implements PatientMapper {
 
         Patient patient = new Patient();
 
-        patient.setAddress( toEntity( patientDTO.getAddress() ) );
-        patient.setBirthDate( patientDTO.getBirthDate() );
-        patient.setDiagnoses( diagnosisDTOListToDiagnosisList( patientDTO.getDiagnoses() ) );
-        patient.setEmail( patientDTO.getEmail() );
-        patient.setFirstName( patientDTO.getFirstName() );
         patient.setId( patientDTO.getId() );
-        patient.setInsuranceDetails( toEntity( patientDTO.getInsuranceDetails() ) );
-        patient.setLastName( patientDTO.getLastName() );
-        patient.setMaritalStatus( patientDTO.getMaritalStatus() );
         patient.setMedicalRecordNumber( patientDTO.getMedicalRecordNumber() );
-        patient.setMobile( patientDTO.getMobile() );
-        patient.setPrimaryPhysician( toEntity( patientDTO.getPrimaryPhysician() ) );
-        patient.setReferralInfo( toEntity( patientDTO.getReferralInfo() ) );
-        patient.setSex( patientDTO.getSex() );
         patient.setStartOfCareDate( patientDTO.getStartOfCareDate() );
         patient.setStatus( patientDTO.getStatus() );
+        patient.setFirstName( patientDTO.getFirstName() );
+        patient.setLastName( patientDTO.getLastName() );
+        patient.setSex( patientDTO.getSex() );
+        patient.setBirthDate( patientDTO.getBirthDate() );
+        patient.setMaritalStatus( patientDTO.getMaritalStatus() );
+        patient.setEmail( patientDTO.getEmail() );
+        patient.setMobile( patientDTO.getMobile() );
+        patient.setAddress( toEntity( patientDTO.getAddress() ) );
+        patient.setReferralInfo( toEntity( patientDTO.getReferralInfo() ) );
+        patient.setDiagnoses( diagnosisDTOListToDiagnosisList( patientDTO.getDiagnoses() ) );
+        patient.setInsuranceDetails( toEntity( patientDTO.getInsuranceDetails() ) );
+        patient.setPrimaryPhysician( toEntity( patientDTO.getPrimaryPhysician() ) );
 
         return patient;
     }
@@ -91,8 +91,8 @@ public class PatientMapperImpl implements PatientMapper {
 
         addressDTO.setAddressLine( address.getAddressLine() );
         addressDTO.setCity( address.getCity() );
-        addressDTO.setCounty( address.getCounty() );
         addressDTO.setState( address.getState() );
+        addressDTO.setCounty( address.getCounty() );
         addressDTO.setZipCode( address.getZipCode() );
 
         return addressDTO;
@@ -108,8 +108,8 @@ public class PatientMapperImpl implements PatientMapper {
 
         address.setAddressLine( addressDTO.getAddressLine() );
         address.setCity( addressDTO.getCity() );
-        address.setCounty( addressDTO.getCounty() );
         address.setState( addressDTO.getState() );
+        address.setCounty( addressDTO.getCounty() );
         address.setZipCode( addressDTO.getZipCode() );
 
         return address;
@@ -123,10 +123,10 @@ public class PatientMapperImpl implements PatientMapper {
 
         ReferralInfoDTO referralInfoDTO = new ReferralInfoDTO();
 
-        referralInfoDTO.setEmail( referralInfo.getEmail() );
         referralInfoDTO.setId( referralInfo.getId() );
-        referralInfoDTO.setMobile( referralInfo.getMobile() );
         referralInfoDTO.setReferrerName( referralInfo.getReferrerName() );
+        referralInfoDTO.setEmail( referralInfo.getEmail() );
+        referralInfoDTO.setMobile( referralInfo.getMobile() );
 
         return referralInfoDTO;
     }
@@ -139,10 +139,10 @@ public class PatientMapperImpl implements PatientMapper {
 
         ReferralInfo referralInfo = new ReferralInfo();
 
-        referralInfo.setEmail( referralInfoDTO.getEmail() );
         referralInfo.setId( referralInfoDTO.getId() );
-        referralInfo.setMobile( referralInfoDTO.getMobile() );
         referralInfo.setReferrerName( referralInfoDTO.getReferrerName() );
+        referralInfo.setEmail( referralInfoDTO.getEmail() );
+        referralInfo.setMobile( referralInfoDTO.getMobile() );
 
         return referralInfo;
     }
@@ -155,9 +155,9 @@ public class PatientMapperImpl implements PatientMapper {
 
         DiagnosisDTO diagnosisDTO = new DiagnosisDTO();
 
-        diagnosisDTO.setDescription( diagnosis.getDescription() );
-        diagnosisDTO.setDiagnosisCode( diagnosis.getDiagnosisCode() );
         diagnosisDTO.setId( diagnosis.getId() );
+        diagnosisDTO.setDiagnosisCode( diagnosis.getDiagnosisCode() );
+        diagnosisDTO.setDescription( diagnosis.getDescription() );
         diagnosisDTO.setType( diagnosis.getType() );
 
         return diagnosisDTO;
@@ -171,9 +171,9 @@ public class PatientMapperImpl implements PatientMapper {
 
         Diagnosis diagnosis = new Diagnosis();
 
-        diagnosis.setDescription( diagnosisDTO.getDescription() );
-        diagnosis.setDiagnosisCode( diagnosisDTO.getDiagnosisCode() );
         diagnosis.setId( diagnosisDTO.getId() );
+        diagnosis.setDiagnosisCode( diagnosisDTO.getDiagnosisCode() );
+        diagnosis.setDescription( diagnosisDTO.getDescription() );
         diagnosis.setType( diagnosisDTO.getType() );
 
         return diagnosis;
@@ -187,11 +187,11 @@ public class PatientMapperImpl implements PatientMapper {
 
         InsuranceDetailsDTO insuranceDetailsDTO = new InsuranceDetailsDTO();
 
-        insuranceDetailsDTO.setGroupNumber( insuranceDetails.getGroupNumber() );
         insuranceDetailsDTO.setId( insuranceDetails.getId() );
         insuranceDetailsDTO.setInsuranceProvider( insuranceDetails.getInsuranceProvider() );
-        insuranceDetailsDTO.setPolicyHolderName( insuranceDetails.getPolicyHolderName() );
         insuranceDetailsDTO.setPolicyNumber( insuranceDetails.getPolicyNumber() );
+        insuranceDetailsDTO.setGroupNumber( insuranceDetails.getGroupNumber() );
+        insuranceDetailsDTO.setPolicyHolderName( insuranceDetails.getPolicyHolderName() );
         insuranceDetailsDTO.setRelationshipToPatient( insuranceDetails.getRelationshipToPatient() );
 
         return insuranceDetailsDTO;
@@ -205,11 +205,11 @@ public class PatientMapperImpl implements PatientMapper {
 
         InsuranceDetails insuranceDetails = new InsuranceDetails();
 
-        insuranceDetails.setGroupNumber( insuranceDetailsDTO.getGroupNumber() );
         insuranceDetails.setId( insuranceDetailsDTO.getId() );
         insuranceDetails.setInsuranceProvider( insuranceDetailsDTO.getInsuranceProvider() );
-        insuranceDetails.setPolicyHolderName( insuranceDetailsDTO.getPolicyHolderName() );
         insuranceDetails.setPolicyNumber( insuranceDetailsDTO.getPolicyNumber() );
+        insuranceDetails.setGroupNumber( insuranceDetailsDTO.getGroupNumber() );
+        insuranceDetails.setPolicyHolderName( insuranceDetailsDTO.getPolicyHolderName() );
         insuranceDetails.setRelationshipToPatient( insuranceDetailsDTO.getRelationshipToPatient() );
 
         return insuranceDetails;
@@ -223,13 +223,13 @@ public class PatientMapperImpl implements PatientMapper {
 
         PrimaryPhysicianDTO primaryPhysicianDTO = new PrimaryPhysicianDTO();
 
-        primaryPhysicianDTO.setAddress( toDTO( primaryPhysician.getAddress() ) );
-        primaryPhysicianDTO.setEmail( primaryPhysician.getEmail() );
         primaryPhysicianDTO.setId( primaryPhysician.getId() );
-        primaryPhysicianDTO.setLicenseNumber( primaryPhysician.getLicenseNumber() );
         primaryPhysicianDTO.setName( primaryPhysician.getName() );
-        primaryPhysicianDTO.setPhone( primaryPhysician.getPhone() );
+        primaryPhysicianDTO.setLicenseNumber( primaryPhysician.getLicenseNumber() );
         primaryPhysicianDTO.setSpecialty( primaryPhysician.getSpecialty() );
+        primaryPhysicianDTO.setEmail( primaryPhysician.getEmail() );
+        primaryPhysicianDTO.setPhone( primaryPhysician.getPhone() );
+        primaryPhysicianDTO.setAddress( toDTO( primaryPhysician.getAddress() ) );
 
         return primaryPhysicianDTO;
     }
@@ -242,13 +242,13 @@ public class PatientMapperImpl implements PatientMapper {
 
         PrimaryPhysician primaryPhysician = new PrimaryPhysician();
 
-        primaryPhysician.setAddress( toEntity( primaryPhysicianDTO.getAddress() ) );
-        primaryPhysician.setEmail( primaryPhysicianDTO.getEmail() );
         primaryPhysician.setId( primaryPhysicianDTO.getId() );
-        primaryPhysician.setLicenseNumber( primaryPhysicianDTO.getLicenseNumber() );
         primaryPhysician.setName( primaryPhysicianDTO.getName() );
-        primaryPhysician.setPhone( primaryPhysicianDTO.getPhone() );
+        primaryPhysician.setLicenseNumber( primaryPhysicianDTO.getLicenseNumber() );
         primaryPhysician.setSpecialty( primaryPhysicianDTO.getSpecialty() );
+        primaryPhysician.setEmail( primaryPhysicianDTO.getEmail() );
+        primaryPhysician.setPhone( primaryPhysicianDTO.getPhone() );
+        primaryPhysician.setAddress( toEntity( primaryPhysicianDTO.getAddress() ) );
 
         return primaryPhysician;
     }

@@ -7,6 +7,9 @@ import com.healthcare.patient.repository.PatientRepository;
 import com.healthcare.patient.service.PatientService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -20,6 +23,7 @@ public class PatientServiceImpl implements PatientService {
     private final PatientRepository patientRepository;
     private final PatientMapper patientMapper;
 
+    @CachePut(value="PATIENT_CACHE",key = "#result.id")
     @Override
     public PatientDTO createPatient(PatientDTO patientDTO) {
         Patient patient = patientMapper.toEntity(patientDTO);
@@ -27,6 +31,7 @@ public class PatientServiceImpl implements PatientService {
         return patientMapper.toDTO(patient);
     }
 
+    @CachePut(value="PATIENT_CACHE",key = "#id")
     @Override
     public PatientDTO updatePatient(Long id, PatientDTO patientDTO) {
         if (!patientRepository.existsById(id)) {
@@ -38,6 +43,7 @@ public class PatientServiceImpl implements PatientService {
         return patientMapper.toDTO(patient);
     }
 
+    @Cacheable(value="PATIENT_CACHE",key = "#id")
     @Override
     @Transactional(readOnly = true)
     public PatientDTO getPatient(Long id) {
@@ -53,6 +59,8 @@ public class PatientServiceImpl implements PatientService {
                 .map(patientMapper::toDTO);
     }
 
+
+    @CacheEvict(value="PATIENT_CACHE",key = "#id")
     @Override
     public void deletePatient(Long id) {
         if (!patientRepository.existsById(id)) {
