@@ -1,0 +1,16 @@
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          external-service:
+            client-id: config-client
+            authorization-grant-type: password
+            username: jaslin
+            password: jas123
+            scope: openid
+            provider: keycloak
+
+        provider:
+          keycloak:
+            token-uri: http://127.0.0.1:8090/realms/blooddonor_app/protocol/openid-connect/token

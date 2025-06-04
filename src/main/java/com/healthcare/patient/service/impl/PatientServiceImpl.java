@@ -1,6 +1,8 @@
 package com.healthcare.patient.service.impl;
 
+import com.healthcare.patient.config.UserClient;
 import com.healthcare.patient.dto.PatientDTO;
+import com.healthcare.patient.dto.UserDto;
 import com.healthcare.patient.entity.Patient;
 import com.healthcare.patient.mapper.PatientMapper;
 import com.healthcare.patient.repository.PatientRepository;
@@ -21,7 +23,9 @@ import org.springframework.transaction.annotation.Transactional;
 public class PatientServiceImpl implements PatientService {
 
     private final PatientRepository patientRepository;
+    private final UserClient userClient;
     private final PatientMapper patientMapper;
+
 
     @CachePut(value="PATIENT_CACHE",key = "#result.id")
     @Override
@@ -47,9 +51,12 @@ public class PatientServiceImpl implements PatientService {
     @Override
     @Transactional(readOnly = true)
     public PatientDTO getPatient(Long id) {
-        return patientRepository.findById(id)
+        UserDto user = getUser(id.intValue());
+        PatientDTO patientDTO = patientRepository.findById(id)
                 .map(patientMapper::toDTO)
                 .orElseThrow(() -> new EntityNotFoundException("Patient not found with id: " + id));
+        patientDTO.setUserDto(user);
+        return patientDTO;
     }
 
     @Override
@@ -73,5 +80,10 @@ public class PatientServiceImpl implements PatientService {
     @Transactional(readOnly = true)
     public boolean existsByMedicalRecordNumber(String medicalRecordNumber) {
         return patientRepository.existsByMedicalRecordNumber(medicalRecordNumber);
+    }
+
+    public UserDto getUser(Integer id){
+        return userClient.findById(id);
+
     }
 } 

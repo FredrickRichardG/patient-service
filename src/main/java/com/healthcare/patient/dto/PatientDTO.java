@@ -27,4 +27,5 @@ public class PatientDTO {
     private List<DiagnosisDTO> diagnoses = new ArrayList<>();
     private InsuranceDetailsDTO insuranceDetails;
     private PrimaryPhysicianDTO primaryPhysician;
+    private UserDto userDto;
 } 
