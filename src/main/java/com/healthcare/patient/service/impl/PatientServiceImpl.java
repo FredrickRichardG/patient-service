@@ -1,12 +1,14 @@
 package com.healthcare.patient.service.impl;
 
-import com.healthcare.patient.config.UserClient;
+import com.healthcare.patient.dto.VitalSignsDTO;
+import com.healthcare.patient.service.UserClient;
 import com.healthcare.patient.dto.PatientDTO;
 import com.healthcare.patient.dto.UserDto;
 import com.healthcare.patient.entity.Patient;
 import com.healthcare.patient.mapper.PatientMapper;
 import com.healthcare.patient.repository.PatientRepository;
 import com.healthcare.patient.service.PatientService;
+import com.healthcare.patient.service.VitalClient;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
@@ -17,6 +19,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -24,6 +28,7 @@ public class PatientServiceImpl implements PatientService {
 
     private final PatientRepository patientRepository;
     private final UserClient userClient;
+    private final VitalClient vitalClient;
     private final PatientMapper patientMapper;
 
 
@@ -51,11 +56,14 @@ public class PatientServiceImpl implements PatientService {
     @Override
     @Transactional(readOnly = true)
     public PatientDTO getPatient(Long id) {
-        UserDto user = getUser(id.intValue());
+        UserDto user = userClient.findById(id.intValue());
+
         PatientDTO patientDTO = patientRepository.findById(id)
                 .map(patientMapper::toDTO)
                 .orElseThrow(() -> new EntityNotFoundException("Patient not found with id: " + id));
         patientDTO.setUserDto(user);
+        List<VitalSignsDTO> vitalSign = vitalClient.findByPatientId(patientDTO.getMedicalRecordNumber());
+        patientDTO.setVitalSignsDTO(vitalSign);
         return patientDTO;
     }
 
@@ -82,8 +90,4 @@ public class PatientServiceImpl implements PatientService {
         return patientRepository.existsByMedicalRecordNumber(medicalRecordNumber);
     }
 
-    public UserDto getUser(Integer id){
-        return userClient.findById(id);
-
-    }
 } 

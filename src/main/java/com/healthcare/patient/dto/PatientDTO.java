@@ -28,4 +28,5 @@ public class PatientDTO {
     private InsuranceDetailsDTO insuranceDetails;
     private PrimaryPhysicianDTO primaryPhysician;
     private UserDto userDto;
+    private List<VitalSignsDTO> vitalSignsDTO;
 } 

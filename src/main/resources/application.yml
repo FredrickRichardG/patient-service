@@ -3,13 +3,17 @@ spring:
     oauth2:
       client:
         registration:
-          external-service:
-            client-id: config-client
+          user-service:
+            client-id: user-service
             authorization-grant-type: password
-            username: jaslin
-            password: jas123
             scope: openid
             provider: keycloak
+          sign-service:
+            client-id: sign-service
+            authorization-grant-type: password
+            scope: openid
+            provider: keycloak
+
 
         provider:
           keycloak:
