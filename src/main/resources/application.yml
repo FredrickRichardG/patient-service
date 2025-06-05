@@ -18,3 +18,13 @@ spring:
         provider:
           keycloak:
             token-uri: http://127.0.0.1:8090/realms/blooddonor_app/protocol/openid-connect/token
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+#  metrics:
+#    export:
+#      prometheus:
+#        enabled: true

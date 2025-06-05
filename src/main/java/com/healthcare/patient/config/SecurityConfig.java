@@ -36,6 +36,7 @@ public class SecurityConfig {
                         ).permitAll()
 //                        .requestMatchers("/api/v1/patients/").permitAll() // Allow public APIs
                         .requestMatchers(HttpMethod.GET,"/api/v1/patients/**").permitAll()
+                                .requestMatchers(HttpMethod.GET,"/actuator/**").hasRole("admin")
                                 .requestMatchers(HttpMethod.PUT,"/api/v1/patients/**").hasRole("admin")
                                 .requestMatchers(HttpMethod.DELETE,"/api/v1/patients/**").hasRole("admin")
                                 .requestMatchers(HttpMethod.POST,"/api/v1/patients/**").hasRole("admin")
