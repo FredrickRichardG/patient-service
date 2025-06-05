@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
-@FeignClient(name="sign-service",url = "http://localhost:8091/")
+@FeignClient(name="sign-service")
 public interface VitalClient {
 
     @GetMapping("/api/v1/vital-signs/patient/{patientId}")

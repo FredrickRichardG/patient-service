@@ -19,12 +19,23 @@ spring:
           keycloak:
             token-uri: http://127.0.0.1:8090/realms/blooddonor_app/protocol/openid-connect/token
 
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+        enabled: true
+        register: true
+        prefer-ip-address: true
+        health-check-path: /actuator/health
+        health-check-interval: 10s
+        service-name: patient-service
+
 management:
   endpoints:
     web:
       exposure:
         include: "*"
-#  metrics:
-#    export:
-#      prometheus:
-#        enabled: true
+  endpoint:
+    health:
+      show-details: always
