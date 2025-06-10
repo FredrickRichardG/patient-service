@@ -1,5 +1,6 @@
 package com.healthcare.patient.service.impl;
 
+import com.healthcare.patient.annotation.ExecutionTime;
 import com.healthcare.patient.dto.VitalSignsDTO;
 import com.healthcare.patient.service.UserClient;
 import com.healthcare.patient.dto.PatientDTO;
@@ -32,6 +33,7 @@ public class PatientServiceImpl implements PatientService {
     private final PatientMapper patientMapper;
 
 
+
     @CachePut(value="PATIENT_CACHE",key = "#result.id")
     @Override
     public PatientDTO createPatient(PatientDTO patientDTO) {
@@ -52,6 +54,7 @@ public class PatientServiceImpl implements PatientService {
         return patientMapper.toDTO(patient);
     }
 
+    @ExecutionTime
     @Cacheable(value="PATIENT_CACHE",key = "#id")
     @Override
     @Transactional(readOnly = true)
