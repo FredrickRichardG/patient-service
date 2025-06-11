@@ -1,6 +1,7 @@
 package com.healthcare.patient.service.impl;
 
 import com.healthcare.patient.annotation.ExecutionTime;
+import com.healthcare.patient.config.KafkaAuditPublisher;
 import com.healthcare.patient.dto.VitalSignsDTO;
 import com.healthcare.patient.service.UserClient;
 import com.healthcare.patient.dto.PatientDTO;
@@ -21,6 +22,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -31,6 +33,7 @@ public class PatientServiceImpl implements PatientService {
     private final UserClient userClient;
     private final VitalClient vitalClient;
     private final PatientMapper patientMapper;
+    private final KafkaAuditPublisher kafkaAuditPublisher;
 
 
 
@@ -45,13 +48,16 @@ public class PatientServiceImpl implements PatientService {
     @CachePut(value="PATIENT_CACHE",key = "#id")
     @Override
     public PatientDTO updatePatient(Long id, PatientDTO patientDTO) {
-        if (!patientRepository.existsById(id)) {
-            throw new EntityNotFoundException("Patient not found with id: " + id);
-        }
-        Patient patient = patientMapper.toEntity(patientDTO);
-        patient.setId(id);
-        patient = patientRepository.save(patient);
-        return patientMapper.toDTO(patient);
+        Patient existPatient = patientRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Patient not found with id: " + id));
+
+        PatientDTO patient = patientMapper.toDTO(existPatient);
+
+        patientMapper.updateEntityFromDTO(patientDTO, existPatient);
+        kafkaAuditPublisher.publish("Patient",id.toString(),"UPDATE",patient,existPatient,"system-user");
+
+        Patient updatedPatient = patientRepository.save(existPatient);
+        return patientMapper.toDTO(updatedPatient);
     }
 
     @ExecutionTime

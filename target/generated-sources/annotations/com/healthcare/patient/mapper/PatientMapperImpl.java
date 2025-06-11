@@ -19,7 +19,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-06-09T16:47:58+0530",
+    date = "2025-06-11T17:33:58+0530",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 21.0.7 (Oracle Corporation)"
 )
 @Component
@@ -79,6 +79,44 @@ public class PatientMapperImpl implements PatientMapper {
         patient.setPrimaryPhysician( toEntity( patientDTO.getPrimaryPhysician() ) );
 
         return patient;
+    }
+
+    @Override
+    public void updateEntityFromDTO(PatientDTO dto, Patient entity) {
+        if ( dto == null ) {
+            return;
+        }
+
+        entity.setMedicalRecordNumber( dto.getMedicalRecordNumber() );
+        entity.setStartOfCareDate( dto.getStartOfCareDate() );
+        entity.setStatus( dto.getStatus() );
+        entity.setFirstName( dto.getFirstName() );
+        entity.setLastName( dto.getLastName() );
+        entity.setSex( dto.getSex() );
+        entity.setBirthDate( dto.getBirthDate() );
+        entity.setMaritalStatus( dto.getMaritalStatus() );
+        entity.setEmail( dto.getEmail() );
+        entity.setMobile( dto.getMobile() );
+        entity.setAddress( toEntity( dto.getAddress() ) );
+        entity.setReferralInfo( toEntity( dto.getReferralInfo() ) );
+        if ( entity.getDiagnoses() != null ) {
+            List<Diagnosis> list = diagnosisDTOListToDiagnosisList( dto.getDiagnoses() );
+            if ( list != null ) {
+                entity.getDiagnoses().clear();
+                entity.getDiagnoses().addAll( list );
+            }
+            else {
+                entity.setDiagnoses( null );
+            }
+        }
+        else {
+            List<Diagnosis> list = diagnosisDTOListToDiagnosisList( dto.getDiagnoses() );
+            if ( list != null ) {
+                entity.setDiagnoses( list );
+            }
+        }
+        entity.setInsuranceDetails( toEntity( dto.getInsuranceDetails() ) );
+        entity.setPrimaryPhysician( toEntity( dto.getPrimaryPhysician() ) );
     }
 
     @Override
