@@ -35,6 +35,17 @@ spring:
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
+rabbitmq:
+  exchange: patient-exchange
+  routing-key: patient.created
+  queue: patient-queue
 management:
   endpoints:
     web:

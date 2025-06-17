@@ -1,6 +1,8 @@
 package com.healthcare.patient.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,6 +14,7 @@ import java.util.List;
 @Table(name = "patients")
 @Getter
 @Setter
+@Data
 public class Patient extends BaseAuditEntity {
 
     @Id
@@ -39,6 +42,7 @@ public class Patient extends BaseAuditEntity {
     private Sex sex;
 
     @Column(name = "birth_date")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthDate;
 
     @Column(name = "marital_status")

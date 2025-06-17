@@ -13,6 +13,8 @@ import com.healthcare.patient.service.PatientService;
 import com.healthcare.patient.service.VitalClient;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
@@ -34,6 +36,13 @@ public class PatientServiceImpl implements PatientService {
     private final VitalClient vitalClient;
     private final PatientMapper patientMapper;
     private final KafkaAuditPublisher kafkaAuditPublisher;
+    private final RabbitTemplate rabbitTemplate;
+
+    @Value("${rabbitmq.exchange}")
+    private String exchange;
+
+    @Value("${rabbitmq.routing-key}")
+    private String routingKey;
 
 
 
@@ -42,6 +51,7 @@ public class PatientServiceImpl implements PatientService {
     public PatientDTO createPatient(PatientDTO patientDTO) {
         Patient patient = patientMapper.toEntity(patientDTO);
         patient = patientRepository.save(patient);
+        rabbitTemplate.convertAndSend(exchange, routingKey, patient);
         return patientMapper.toDTO(patient);
     }
 
