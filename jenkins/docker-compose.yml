@@ -1,0 +1,15 @@
+version: '3.8'
+services:
+  jenkins:
+    build: .
+    container_name: jenkins_app
+    ports:
+      - "8099:8080"
+      - "50000:50000"  # For Jenkins agents (optional)
+    volumes:
+      - jenkins_home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+    restart: unless-stopped
+
+volumes:
+  jenkins_home:
